@@ -23,7 +23,7 @@ router.get("/allUser", (req, res) => {
     })
 })
 
-//getting single user by delete
+//getting single user by id
 router.get("/User/:id", (req, res)=> {
     User.findById({_id:req.params.id})
     .then((data)=>{
