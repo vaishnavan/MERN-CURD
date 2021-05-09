@@ -2,8 +2,6 @@ const express = require("express");
 const User = require('../model/userModel');
 const router = express();
 
-
-
 //Adding a data
 router.post("/addUser", (req, res)=>{
     const { username, age } = req.body;
@@ -21,6 +19,14 @@ router.post("/addUser", (req, res)=>{
 router.get("/allUser", (req, res) => {
     User.find()
     .then((data) =>{
+        res.json(data);
+    })
+})
+
+//getting single user by delete
+router.get("/User/:id", (req, res)=> {
+    User.findById({_id:req.params.id})
+    .then((data)=>{
         res.json(data);
     })
 })
@@ -46,6 +52,14 @@ router.delete("/deleteUser/:id", (req, res) =>{
     User.deleteOne({_id:req.params.id})
     .then(()=>{
         res.json({message:"Deleted successfully"});
+    })
+})
+
+//delete all
+router.delete("/deleteall", (req, res)=> {
+    User.deleteMany()
+    .then(()=>{
+        res.status(200).json({message:"All data deleted"})
     })
 })
 
